@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Flask Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .calculator {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            width: 280px;
+        }
+        .display {
+            width: 100%;
+            height: 50px;
+            font-size: 1.5rem;
+            text-align: right;
+            margin-bottom: 15px;
+            padding: 5px 10px;
+            box-sizing: border-box;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            background: #fff;
+        }
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        button {
+            padding: 15px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            border: none;
+            border-radius: 6px;
+            background-color: #e0e0e0;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background-color: #d0d0d0;
+        }
+        button.operator {
+            background-color: #ff9f43;
+            color: white;
+        }
+        button.operator:hover {
+            background-color: #f39c12;
+        }
+        button.equal {
+            background-color: #2ed573;
+            color: white;
+            grid-column: span 2;
+        }
+        button.equal:hover {
+            background-color: #26af5f;
+        }
+        button.clear {
+            background-color: #ff4757;
+            color: white;
+            grid-column: span 2;
+        }
+        button.clear:hover {
+            background-color: #e84118;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="calculator">
+        <form method="POST">
+            <input type="text" name="expression" class="display" value="{{ result if result is not none else (expression if expression else '') }}" readonly>
+            <div class="buttons">
+                <button type="button" class="clear" onclick="clearDisplay()">C</button>
+                <button type="button" class="operator" onclick="appendValue('/')">/</button>
+                <button type="button" class="operator" onclick="appendValue('*')">*</button>
+
+                <button type="button" onclick="appendValue('7')">7</button>
+                <button type="button" onclick="appendValue('8')">8</button>
+                <button type="button" onclick="appendValue('9')">9</button>
+                <button type="button" class="operator" onclick="appendValue('-')">-</button>
+
+                <button type="button" onclick="appendValue('4')">4</button>
+                <button type="button" onclick="appendValue('5')">5</button>
+                <button type="button" onclick="appendValue('6')">6</button>
+                <button type="button" class="operator" onclick="appendValue('+')">+</button>
+
+                <button type="button" onclick="appendValue('1')">1</button>
+                <button type="button" onclick="appendValue('2')">2</button>
+                <button type="button" onclick="appendValue('3')">3</button>
+                <button type="button" onclick="appendValue('.')">.</button>
+
+                <button type="button" onclick="appendValue('0')">0</button>
+                <button type="submit" class="equal">=</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const display = document.querySelector('.display');
+
+        function appendValue(val) {
+            if (display.value === 'Error' || display.value === 'Error: Invalid Characters') {
+                display.value = '';
+            }
+            display.value += val;
+        }
+
+        function clearDisplay() {
+            display.value = '';
+        }
+    </script>
+
+</body>
+</html>
